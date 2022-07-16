@@ -1,0 +1,466 @@
+[
+    {
+        "id": "90a03027.9871a",
+        "type": "tab",
+        "label": "Flow 9",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c495d654.612cb8",
+        "type": "http request",
+        "z": "90a03027.9871a",
+        "name": "",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "http://192.168.1.79/capture",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 260,
+        "wires": [
+            [
+                "a04ee0c6.68b958"
+            ]
+        ]
+    },
+    {
+        "id": "d92f519e.94099",
+        "type": "file",
+        "z": "90a03027.9871a",
+        "name": "",
+        "filename": "",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "setbymsg",
+        "x": 810,
+        "y": 260,
+        "wires": [
+            [
+                "2a1a7595.21f62a"
+            ]
+        ]
+    },
+    {
+        "id": "a04ee0c6.68b958",
+        "type": "function",
+        "z": "90a03027.9871a",
+        "name": "",
+        "func": "msg.filename = \"/home/unitec/Documentos/GitHub/Proyecto-Capstone-UNITEC/python/facedetection/cam_photos/\"+global.get (\"fecha\")+\".jpg\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 260,
+        "wires": [
+            [
+                "d92f519e.94099"
+            ]
+        ]
+    },
+    {
+        "id": "f43586a7.e441c",
+        "type": "exec",
+        "z": "90a03027.9871a",
+        "command": "python /home/unitec/Documentos/GitHub/Proyecto-Capstone-UNITEC/python/facedetection/facecheckMQTT.py",
+        "addpay": "command",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 420,
+        "y": 380,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "2a1a7595.21f62a",
+        "type": "function",
+        "z": "90a03027.9871a",
+        "name": "",
+        "func": "\nmsg.command = \" -i \" +msg.filename + \" -j /home/unitec/Documentos/GitHub/Proyecto-Capstone-UNITEC/python/facedetection/my_db/\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 260,
+        "wires": [
+            [
+                "f43586a7.e441c"
+            ]
+        ]
+    },
+    {
+        "id": "5b13d13b.bc011",
+        "type": "ui_template",
+        "z": "90a03027.9871a",
+        "group": "eef7e693.5d679",
+        "name": "",
+        "order": 1,
+        "width": 7,
+        "height": 5,
+        "format": "<iframe width=\"320\" height=\"240\"\n    src=\"http://192.168.1.79:81/stream\">\n</iframe>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "x": 600,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "68bb2111.f832c",
+        "type": "mqtt in",
+        "z": "90a03027.9871a",
+        "name": "",
+        "topic": "UnitecIoT/py",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "aa3107cbb6f29f72",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "x": 170,
+        "y": 540,
+        "wires": [
+            [
+                "1a2f149.8329aeb"
+            ]
+        ]
+    },
+    {
+        "id": "1a2f149.8329aeb",
+        "type": "json",
+        "z": "90a03027.9871a",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 370,
+        "y": 540,
+        "wires": [
+            [
+                "19365a37.90271e"
+            ]
+        ]
+    },
+    {
+        "id": "19365a37.90271e",
+        "type": "function",
+        "z": "90a03027.9871a",
+        "name": "",
+        "func": "var lista = Object.keys(msg.payload).length;\nlet lst = [lista];\nfor (var i = 0; i < lista; i++) {\n    lst [i] = msg.payload[i][\"VGG-Face_cosine\"];\n}\nmsg.lista = lst;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 540,
+        "wires": [
+            [
+                "c63f0674.2cf0d"
+            ]
+        ]
+    },
+    {
+        "id": "c63f0674.2cf0d",
+        "type": "calculator",
+        "z": "90a03027.9871a",
+        "name": "",
+        "inputMsgField": "lista",
+        "outputMsgField": "max",
+        "operation": "max",
+        "constant": "",
+        "round": false,
+        "decimals": 0,
+        "x": 800,
+        "y": 540,
+        "wires": [
+            [
+                "242a5cf7.a5825c"
+            ]
+        ]
+    },
+    {
+        "id": "242a5cf7.a5825c",
+        "type": "function",
+        "z": "90a03027.9871a",
+        "name": "",
+        "func": "var lista = Object.keys(msg.payload).length;\nfor (var i = 0; i < lista; i++) {\n    if (msg.max == msg.payload[i][\"VGG-Face_cosine\"]) {\n        msg.iden = msg.payload[i].identity;\n        msg.index = i;\n        return msg;\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1000,
+        "y": 540,
+        "wires": [
+            [
+                "81c5b917.71d038"
+            ]
+        ]
+    },
+    {
+        "id": "81c5b917.71d038",
+        "type": "string",
+        "z": "90a03027.9871a",
+        "name": "",
+        "methods": [
+            {
+                "name": "append",
+                "params": [
+                    {
+                        "type": "msg",
+                        "value": "iden"
+                    }
+                ]
+            },
+            {
+                "name": "delRightMost",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "/"
+                    }
+                ]
+            },
+            {
+                "name": "append",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "/info.json"
+                    }
+                ]
+            }
+        ],
+        "prop": "/home/unitec/Documentos/GitHub/Proyecto-Capstone-UNITEC/python/facedetection/",
+        "propout": "filename",
+        "object": "str",
+        "objectout": "msg",
+        "x": 150,
+        "y": 720,
+        "wires": [
+            [
+                "2da12e4.6a504d2"
+            ]
+        ]
+    },
+    {
+        "id": "2da12e4.6a504d2",
+        "type": "file in",
+        "z": "90a03027.9871a",
+        "name": "",
+        "filename": "",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 370,
+        "y": 720,
+        "wires": [
+            [
+                "ef30cd4f.e8934"
+            ]
+        ]
+    },
+    {
+        "id": "ef30cd4f.e8934",
+        "type": "json",
+        "z": "90a03027.9871a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 570,
+        "y": 720,
+        "wires": [
+            [
+                "acf62db3.7c779",
+                "da24c35b.5000f"
+            ]
+        ]
+    },
+    {
+        "id": "eecc67ac.8bbe08",
+        "type": "ui_button",
+        "z": "90a03027.9871a",
+        "name": "",
+        "group": "eef7e693.5d679",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Analizar",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 140,
+        "y": 260,
+        "wires": [
+            [
+                "c495d654.612cb8"
+            ]
+        ]
+    },
+    {
+        "id": "acf62db3.7c779",
+        "type": "ui_text",
+        "z": "90a03027.9871a",
+        "group": "eef7e693.5d679",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Persona detectada",
+        "format": "{{msg.payload.Nombre}}",
+        "layout": "row-spread",
+        "x": 830,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "2f00c66a.24996a",
+        "type": "ui_text",
+        "z": "90a03027.9871a",
+        "group": "eef7e693.5d679",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Porcentaje de certeza",
+        "format": "{{msg.max}}",
+        "layout": "row-spread",
+        "x": 1040,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "da24c35b.5000f",
+        "type": "function",
+        "z": "90a03027.9871a",
+        "name": "",
+        "func": "msg.max = msg.max * 100;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 800,
+        "y": 780,
+        "wires": [
+            [
+                "2f00c66a.24996a"
+            ]
+        ]
+    },
+    {
+        "id": "6ef7ad79.d8da64",
+        "type": "inject",
+        "z": "90a03027.9871a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "a6410008.9c40c"
+            ]
+        ]
+    },
+    {
+        "id": "a6410008.9c40c",
+        "type": "function",
+        "z": "90a03027.9871a",
+        "name": "",
+        "func": "global.set (\"fecha\", msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eef7e693.5d679",
+        "type": "ui_group",
+        "name": "Capture",
+        "tab": "44e4d84b.1c068",
+        "order": 1,
+        "disp": true,
+        "width": "7",
+        "collapse": false
+    },
+    {
+        "id": "aa3107cbb6f29f72",
+        "type": "mqtt-broker",
+        "name": "LocalHost",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "hugo-sub-nodered",
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "44e4d84b.1c068",
+        "type": "ui_tab",
+        "name": "Face recognition",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
