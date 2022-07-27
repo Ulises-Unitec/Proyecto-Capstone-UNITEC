@@ -1,5 +1,10 @@
 {
-   "Nombre" : "Alexis Silva",
-   "Carrera" : "Sistemas Digitales y Robotica",
-   "NoCuenta" : 07854545
+   "Campus" :	"336-ECATEPEC",
+   "Escuela" : "INGENIERIA",
+   "Carrera" : "LIC. EN ADMON. DE TEC. DE INF.",
+   "Cuenta" : 11312991,
+   "Nombre" : "Alexis Silva Hernandez",
+   "Estatus" :	"08-EXALUMNO",
+   "Grado" : 0
+
    }
