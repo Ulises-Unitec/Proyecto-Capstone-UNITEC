@@ -1,5 +1,10 @@
 {
+   "Campus" :	"336-ECATEPEC",
+   "Escuela" : "F.A.C.S",
+   "Carrera" : "LICENCIATURA EN GASTRONOMIA",
+   "Cuenta" : 16625277,
    "Nombre" : "Linda Carmina Pineda Galvan",
-   "Carrera" : "Administracion de Tecnologias de la Informacion",
-   "NoCuenta" : 25458254
+   "Estatus" :	"01-INSCRITO",
+   "Grado" : 1
+
    }
