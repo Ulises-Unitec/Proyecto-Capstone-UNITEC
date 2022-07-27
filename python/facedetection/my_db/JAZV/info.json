@@ -1,5 +1,10 @@
 {
+   "Campus" :	"336-ECATEPEC",
+   "Escuela" : "INGENIERIA",
+   "Carrera" : "LIC. EN INGENIERIA CIVIL",
+   "Cuenta" : 19562678,
    "Nombre" : "Jorge Alberto Zuñiga Vazquez",
-   "Carrera" : "Derecho",
-   "NoCuenta" : 336054545
+   "Estatus" :	"03-POSGRADO",
+   "Grado" : 3
+
    }
