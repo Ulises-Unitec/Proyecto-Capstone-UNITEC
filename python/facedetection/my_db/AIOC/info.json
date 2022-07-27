@@ -1,5 +1,10 @@
 {
-   "Nombre" : "Aaron Omaña",
-   "Carrera" : "Sistemas Computacionales",
-   "NoCuenta" : 20365852 
+   "Campus" :	"336-ECATEPEC",
+   "Escuela" : "F.A.C.S",
+   "Carrera" : "LIC.EN CIENC.D/L COMUNICACION",
+   "Cuenta" : 16447516,
+   "Nombre" : "Aaron Isaias Omaña Corona",
+   "Estatus" :	"01-INSCRITO",
+   "Grado" : 5
+
    }
