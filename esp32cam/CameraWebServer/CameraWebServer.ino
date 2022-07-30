@@ -34,11 +34,15 @@ const char* password = "2uYYpD3bHK";
 
 void startCameraServer();
 
+
 void setup() {
+
+  
   Serial.begin(115200);
   Serial.setDebugOutput(true);
   Serial.println();
   pinMode(led_FLASH, OUTPUT);
+  
   camera_config_t config;
   config.ledc_channel = LEDC_CHANNEL_0;
   config.ledc_timer = LEDC_TIMER_0;
@@ -119,8 +123,10 @@ void setup() {
    
 void loop() {
   // put your main code here, to run repeatedly:
+
+ 
   digitalWrite(led_FLASH, LOW); 
-  delay (100000); 
+  delay (1000000); 
   digitalWrite(led_FLASH, HIGH); 
   delay(10000);
 }
