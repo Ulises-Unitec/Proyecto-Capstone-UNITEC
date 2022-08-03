@@ -1,4 +1,4 @@
-//Poryecto Capstone SAMSUNG-UNITEC
+//Proyecto Capstone SAMSUNG-UNITEC
 //Elaborado por Ulises Ivan Lujan Salazar
 //              Jose Luis Rodriguez Rodriguez
 //              Luis Alfonso Rodriguez Santiago
@@ -123,7 +123,6 @@ void setup() {
    
 void loop() {
   // put your main code here, to run repeatedly:
-
  
   digitalWrite(led_FLASH, LOW); 
   delay (1000000); 
