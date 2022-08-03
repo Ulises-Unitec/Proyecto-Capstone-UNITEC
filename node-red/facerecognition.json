@@ -1,36 +1,37 @@
 [
     {
-        "id": "90a03027.9871a",
+        "id": "5a311d30739734e2",
         "type": "tab",
         "label": "Flow 9",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "c495d654.612cb8",
+        "id": "5a023a3ba7e86465",
         "type": "http request",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "method": "GET",
         "ret": "bin",
         "paytoqs": "ignore",
-        "url": "http://192.168.1.79/capture",
+        "url": "http://192.168.1.88/capture",
         "tls": "",
         "persist": false,
         "proxy": "",
         "authType": "",
+        "senderr": false,
         "x": 370,
         "y": 260,
         "wires": [
             [
-                "a04ee0c6.68b958"
+                "3583d35e168c48f4"
             ]
         ]
     },
     {
-        "id": "d92f519e.94099",
+        "id": "964a839c027d12df",
         "type": "file",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "filename": "",
         "appendNewline": false,
@@ -41,14 +42,14 @@
         "y": 260,
         "wires": [
             [
-                "2a1a7595.21f62a"
+                "1eafa5e618379f1f"
             ]
         ]
     },
     {
-        "id": "a04ee0c6.68b958",
+        "id": "3583d35e168c48f4",
         "type": "function",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "func": "msg.filename = \"/home/unitec/Documentos/GitHub/Proyecto-Capstone-UNITEC/python/facedetection/cam_photos/\"+global.get (\"fecha\")+\".jpg\";\nreturn msg;",
         "outputs": 1,
@@ -60,23 +61,24 @@
         "y": 260,
         "wires": [
             [
-                "d92f519e.94099"
+                "964a839c027d12df"
             ]
         ]
     },
     {
-        "id": "f43586a7.e441c",
+        "id": "599f9925c816ebe5",
         "type": "exec",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "command": "python /home/unitec/Documentos/GitHub/Proyecto-Capstone-UNITEC/python/facedetection/facecheckMQTT.py",
         "addpay": "command",
         "append": "",
         "useSpawn": "false",
         "timer": "",
+        "winHide": false,
         "oldrc": false,
         "name": "",
-        "x": 420,
-        "y": 380,
+        "x": 520,
+        "y": 400,
         "wires": [
             [],
             [],
@@ -84,9 +86,9 @@
         ]
     },
     {
-        "id": "2a1a7595.21f62a",
+        "id": "1eafa5e618379f1f",
         "type": "function",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "func": "\nmsg.command = \" -i \" +msg.filename + \" -j /home/unitec/Documentos/GitHub/Proyecto-Capstone-UNITEC/python/facedetection/my_db/\";\nreturn msg;",
         "outputs": 1,
@@ -98,34 +100,14 @@
         "y": 260,
         "wires": [
             [
-                "f43586a7.e441c"
+                "599f9925c816ebe5"
             ]
         ]
     },
     {
-        "id": "5b13d13b.bc011",
-        "type": "ui_template",
-        "z": "90a03027.9871a",
-        "group": "eef7e693.5d679",
-        "name": "",
-        "order": 1,
-        "width": 7,
-        "height": 5,
-        "format": "<iframe width=\"320\" height=\"240\"\n    src=\"http://192.168.1.79:81/stream\">\n</iframe>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "x": 600,
-        "y": 100,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "68bb2111.f832c",
+        "id": "98adfc1a2c4de176",
         "type": "mqtt in",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "topic": "UnitecIoT/py",
         "qos": "2",
@@ -134,18 +116,19 @@
         "nl": false,
         "rap": true,
         "rh": 0,
+        "inputs": 0,
         "x": 170,
         "y": 540,
         "wires": [
             [
-                "1a2f149.8329aeb"
+                "639d71cd0273bf3b"
             ]
         ]
     },
     {
-        "id": "1a2f149.8329aeb",
+        "id": "639d71cd0273bf3b",
         "type": "json",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "property": "payload",
         "action": "obj",
@@ -154,14 +137,14 @@
         "y": 540,
         "wires": [
             [
-                "19365a37.90271e"
+                "d6483318c10d1e03"
             ]
         ]
     },
     {
-        "id": "19365a37.90271e",
+        "id": "d6483318c10d1e03",
         "type": "function",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "func": "var lista = Object.keys(msg.payload).length;\nlet lst = [lista];\nfor (var i = 0; i < lista; i++) {\n    lst [i] = msg.payload[i][\"VGG-Face_cosine\"];\n}\nmsg.lista = lst;\nreturn msg;",
         "outputs": 1,
@@ -173,18 +156,18 @@
         "y": 540,
         "wires": [
             [
-                "c63f0674.2cf0d"
+                "34e944156c591576"
             ]
         ]
     },
     {
-        "id": "c63f0674.2cf0d",
+        "id": "34e944156c591576",
         "type": "calculator",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "inputMsgField": "lista",
         "outputMsgField": "max",
-        "operation": "max",
+        "operation": "min",
         "constant": "",
         "round": false,
         "decimals": 0,
@@ -192,14 +175,14 @@
         "y": 540,
         "wires": [
             [
-                "242a5cf7.a5825c"
+                "3a8a65e061114837"
             ]
         ]
     },
     {
-        "id": "242a5cf7.a5825c",
+        "id": "3a8a65e061114837",
         "type": "function",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "func": "var lista = Object.keys(msg.payload).length;\nfor (var i = 0; i < lista; i++) {\n    if (msg.max == msg.payload[i][\"VGG-Face_cosine\"]) {\n        msg.iden = msg.payload[i].identity;\n        msg.index = i;\n        return msg;\n    }\n}",
         "outputs": 1,
@@ -211,14 +194,14 @@
         "y": 540,
         "wires": [
             [
-                "81c5b917.71d038"
+                "0ecbd910399f27b5"
             ]
         ]
     },
     {
-        "id": "81c5b917.71d038",
+        "id": "0ecbd910399f27b5",
         "type": "string",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "methods": [
             {
@@ -257,32 +240,33 @@
         "y": 720,
         "wires": [
             [
-                "2da12e4.6a504d2"
+                "71d1d79a4f7e95a1"
             ]
         ]
     },
     {
-        "id": "2da12e4.6a504d2",
+        "id": "71d1d79a4f7e95a1",
         "type": "file in",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "filename": "",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
         "encoding": "none",
-        "x": 370,
+        "allProps": false,
+        "x": 380,
         "y": 720,
         "wires": [
             [
-                "ef30cd4f.e8934"
+                "f7d84be2c6f9745c"
             ]
         ]
     },
     {
-        "id": "ef30cd4f.e8934",
+        "id": "f7d84be2c6f9745c",
         "type": "json",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "property": "payload",
         "action": "",
@@ -291,25 +275,31 @@
         "y": 720,
         "wires": [
             [
-                "acf62db3.7c779",
-                "da24c35b.5000f"
+                "ee0391d938f3f467",
+                "48f052b5fafdd113",
+                "1540118e883591d6",
+                "3bd4285fa0e3a218",
+                "3e3aa55808969c21",
+                "b5e18ce2f2bb49e9",
+                "21ce1a7881844326"
             ]
         ]
     },
     {
-        "id": "eecc67ac.8bbe08",
+        "id": "ed4f15e13c42477b",
         "type": "ui_button",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
-        "group": "eef7e693.5d679",
+        "group": "01a86fb890637db4",
         "order": 2,
-        "width": 0,
-        "height": 0,
+        "width": 7,
+        "height": 1,
         "passthru": false,
         "label": "Analizar",
         "tooltip": "",
         "color": "",
         "bgcolor": "",
+        "className": "",
         "icon": "",
         "payload": "",
         "payloadType": "str",
@@ -319,65 +309,31 @@
         "y": 260,
         "wires": [
             [
-                "c495d654.612cb8"
+                "5a023a3ba7e86465"
             ]
         ]
     },
     {
-        "id": "acf62db3.7c779",
+        "id": "48f052b5fafdd113",
         "type": "ui_text",
-        "z": "90a03027.9871a",
-        "group": "eef7e693.5d679",
-        "order": 3,
-        "width": 0,
-        "height": 0,
+        "z": "5a311d30739734e2",
+        "group": "332e1c1b4bfb5e0b",
+        "order": 7,
+        "width": 5,
+        "height": 2,
         "name": "",
-        "label": "Persona detectada",
+        "label": "Alumno",
         "format": "{{msg.payload.Nombre}}",
-        "layout": "row-spread",
-        "x": 830,
-        "y": 720,
+        "layout": "col-center",
+        "className": "",
+        "x": 780,
+        "y": 680,
         "wires": []
     },
     {
-        "id": "2f00c66a.24996a",
-        "type": "ui_text",
-        "z": "90a03027.9871a",
-        "group": "eef7e693.5d679",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "name": "",
-        "label": "Porcentaje de certeza",
-        "format": "{{msg.max}}",
-        "layout": "row-spread",
-        "x": 1040,
-        "y": 780,
-        "wires": []
-    },
-    {
-        "id": "da24c35b.5000f",
-        "type": "function",
-        "z": "90a03027.9871a",
-        "name": "",
-        "func": "msg.max = msg.max * 100;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 800,
-        "y": 780,
-        "wires": [
-            [
-                "2f00c66a.24996a"
-            ]
-        ]
-    },
-    {
-        "id": "6ef7ad79.d8da64",
+        "id": "982a76db87321e85",
         "type": "inject",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "props": [
             {
@@ -399,14 +355,14 @@
         "y": 100,
         "wires": [
             [
-                "a6410008.9c40c"
+                "90b5f35487d4d0b9"
             ]
         ]
     },
     {
-        "id": "a6410008.9c40c",
+        "id": "90b5f35487d4d0b9",
         "type": "function",
-        "z": "90a03027.9871a",
+        "z": "5a311d30739734e2",
         "name": "",
         "func": "global.set (\"fecha\", msg.payload);\nreturn msg;",
         "outputs": 1,
@@ -421,14 +377,185 @@
         ]
     },
     {
-        "id": "eef7e693.5d679",
-        "type": "ui_group",
-        "name": "Capture",
-        "tab": "44e4d84b.1c068",
+        "id": "1540118e883591d6",
+        "type": "ui_text",
+        "z": "5a311d30739734e2",
+        "group": "332e1c1b4bfb5e0b",
+        "order": 5,
+        "width": 10,
+        "height": 1,
+        "name": "",
+        "label": "Carrera",
+        "format": "{{msg.payload.Carrera}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 780,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "ee0391d938f3f467",
+        "type": "ui_text",
+        "z": "5a311d30739734e2",
+        "group": "332e1c1b4bfb5e0b",
+        "order": 6,
+        "width": 5,
+        "height": 2,
+        "name": "",
+        "label": "No. Cuenta",
+        "format": "{{msg.payload.Cuenta}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 790,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "3bd4285fa0e3a218",
+        "type": "ui_text",
+        "z": "5a311d30739734e2",
+        "group": "332e1c1b4bfb5e0b",
         "order": 1,
-        "disp": true,
-        "width": "7",
-        "collapse": false
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "Campus",
+        "format": "{{msg.payload.Campus}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 780,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "3e3aa55808969c21",
+        "type": "ui_text",
+        "z": "5a311d30739734e2",
+        "group": "332e1c1b4bfb5e0b",
+        "order": 4,
+        "width": 5,
+        "height": 1,
+        "name": "",
+        "label": "Facultad",
+        "format": "{{msg.payload.Escuela}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 780,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "b5e18ce2f2bb49e9",
+        "type": "ui_text",
+        "z": "5a311d30739734e2",
+        "group": "332e1c1b4bfb5e0b",
+        "order": 2,
+        "width": 4,
+        "height": 2,
+        "name": "",
+        "label": "Estatus",
+        "format": "{{msg.payload.Estatus}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 780,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "21ce1a7881844326",
+        "type": "ui_text",
+        "z": "5a311d30739734e2",
+        "group": "332e1c1b4bfb5e0b",
+        "order": 3,
+        "width": 1,
+        "height": 2,
+        "name": "",
+        "label": "Grado",
+        "format": "{{msg.payload.Grado}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 770,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "74fb2df4f5269143",
+        "type": "ui_media",
+        "z": "5a311d30739734e2",
+        "group": "a42fbaa2589a312f",
+        "name": "",
+        "width": 7,
+        "height": 4,
+        "order": 1,
+        "category": "Unitec",
+        "file": "UNITEC_logo.fw.png",
+        "layout": "adjust",
+        "showcontrols": true,
+        "loop": true,
+        "onstart": false,
+        "scope": "local",
+        "tooltip": "",
+        "x": 830,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f0c367c64eb0a33e",
+        "type": "ui_button",
+        "z": "5a311d30739734e2",
+        "name": "",
+        "group": "01a86fb890637db4",
+        "order": 3,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "label": "Limpiar Datos",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 520,
+        "y": 820,
+        "wires": [
+            [
+                "ee0391d938f3f467",
+                "48f052b5fafdd113",
+                "1540118e883591d6",
+                "3bd4285fa0e3a218",
+                "3e3aa55808969c21",
+                "b5e18ce2f2bb49e9",
+                "21ce1a7881844326"
+            ]
+        ]
+    },
+    {
+        "id": "cf46da9633703218",
+        "type": "ui_template",
+        "z": "5a311d30739734e2",
+        "group": "01a86fb890637db4",
+        "name": "",
+        "order": 1,
+        "width": 7,
+        "height": 5,
+        "format": "<iframe width=\"320\" height=\"240\"\n    src=\"http://192.168.1.88:81/stream\">\n</iframe>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 600,
+        "y": 100,
+        "wires": [
+            []
+        ],
+        "icon": "font-awesome/fa-address-card-o"
     },
     {
         "id": "aa3107cbb6f29f72",
@@ -456,9 +583,42 @@
         "sessionExpiry": ""
     },
     {
-        "id": "44e4d84b.1c068",
+        "id": "01a86fb890637db4",
+        "type": "ui_group",
+        "name": "",
+        "tab": "4dfadc9189a44c86",
+        "order": 2,
+        "disp": true,
+        "width": 7,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "332e1c1b4bfb5e0b",
+        "type": "ui_group",
+        "name": "",
+        "tab": "4dfadc9189a44c86",
+        "order": 1,
+        "disp": true,
+        "width": 10,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a42fbaa2589a312f",
+        "type": "ui_group",
+        "name": "",
+        "tab": "4dfadc9189a44c86",
+        "order": 3,
+        "disp": true,
+        "width": 7,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4dfadc9189a44c86",
         "type": "ui_tab",
-        "name": "Face recognition",
+        "name": "Reconociemiento Facial UNITEC",
         "icon": "dashboard",
         "disabled": false,
         "hidden": false
