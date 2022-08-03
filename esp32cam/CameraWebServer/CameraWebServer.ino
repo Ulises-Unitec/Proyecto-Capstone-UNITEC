@@ -1,7 +1,10 @@
 //Proyecto Capstone SAMSUNG-UNITEC
-//Elaborado por Ulises Ivan Lujan Salazar
+//Elaborado por 
+//              Ulises Ivan Lujan Salazar
 //              Jose Luis Rodriguez Rodriguez
 //              Luis Alfonso Rodriguez Santiago
+
+
 //Instructor: Hugo Escalpelo
 // CODIGO IOT
 // Diplomado Curso de IoT de Samsung Innovation Campus.
@@ -10,23 +13,11 @@
 #include "esp_camera.h"
 #include <WiFi.h>
 
-//
-// WARNING!!! PSRAM IC required for UXGA resolution and high JPEG quality
-//            Ensure ESP32 Wrover Module or other board with PSRAM is selected
-//            Partial images will be transmitted if image exceeds buffer size
-//
 
-// Select camera model
-//#define CAMERA_MODEL_WROVER_KIT // Has PSRAM
-//#define CAMERA_MODEL_ESP_EYE // Has PSRAM
-//#define CAMERA_MODEL_M5STACK_PSRAM // Has PSRAM
-//#define CAMERA_MODEL_M5STACK_V2_PSRAM // M5Camera version B Has PSRAM
-//#define CAMERA_MODEL_M5STACK_WIDE // Has PSRAM
-//#define CAMERA_MODEL_M5STACK_ESP32CAM // No PSRAM
-//#define CAMERA_MODEL_M5STACK_UNITCAM // No PSRAM
+// Seleccionar Modelo Camara ESP32 cam
 #define CAMERA_MODEL_AI_THINKER // Has PSRAM
-//#define CAMERA_MODEL_TTGO_T_JOURNAL // No PSRAM
 #define led_FLASH 4
+
 #include "camera_pins.h"
 
 const char* ssid = "INFINITUM359B";
