@@ -6,6 +6,6 @@ Integrantes:
   Jose Luis Rodriguez Rodriguez
   Luis Alfonso Rodriguez Santiago
 
-Instructor: Hugo Escalpelo
+Instructor: Hugo Vargas
 
-Gracias Ulises
+
