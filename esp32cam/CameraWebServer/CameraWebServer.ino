@@ -5,7 +5,7 @@
 //              Luis Alfonso Rodriguez Santiago
 
 
-//Instructor: Hugo Escalpelo
+//Instructor: Hugo Vargas
 // CODIGO IOT
 // Diplomado Curso de IoT de Samsung Innovation Campus.
 
